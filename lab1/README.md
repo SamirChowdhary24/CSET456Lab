@@ -476,34 +476,6 @@ The lab also demonstrated the difference between **source-code analysis** and **
 
 ---
 
-# GenAI Usage Declaration
-
-ChatGPT was used as a supporting tool during this lab for:
-
-- Understanding the repository-mining requirements
-- Planning the implementation
-- Explaining Python and Git-related concepts
-- Generating and reviewing parts of the implementation
-- Debugging implementation issues
-- Reviewing generated results
-- Identifying and resolving a source-code classification issue
-- Extending Git-history analysis with monthly statistics
-
-AI-generated code was not accepted blindly.
-
-The implementation was:
-
-1. Reviewed before use.
-2. Executed locally.
-3. Checked for syntax errors.
-4. Tested through the complete analysis pipeline.
-5. Verified using the generated CSV and JSON outputs.
-
-During verification, an issue was identified where documentation and configuration files could be incorrectly treated as source-code files. The source-code classification was then corrected so that source-code statistics are separated from documentation and configuration files.
-
-The final responsibility for the implementation, verification, interpretation, and submitted results remains with the student.
-
----
 
 # Conclusion
 
