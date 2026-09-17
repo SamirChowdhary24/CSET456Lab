@@ -1,0 +1,6 @@
+repository_name,source_file_count,total_lines_of_code,total_source_size_bytes,average_file_size_bytes,average_lines_per_file,source_extensions,commit_count,total_insertions,total_deletions,total_changes,average_files_changed_per_commit,average_commit_changes,unique_authors,first_commit_date,last_commit_date
+fastapi,1147,113612,4108385,3581.85,99.05,".js, .py, .sh",7713,844781,456373,1301154,4.26,168.7,911,2018-12-05 06:56:50+00:00,2026-09-01 20:59:53+00:00
+flask,86,18380,608874,7079.93,213.72,".py, .sh, .sql",5557,302968,228712,531680,3.17,95.68,858,2010-04-06 11:12:57+00:00,2026-09-08 16:40:41+00:00
+pytest,282,115879,4000879,14187.51,410.92,".py, .pyi",17775,1553523,1121178,2674701,4.54,150.48,1172,2007-01-24 14:24:01+00:00,2026-09-17 12:33:36+00:00
+requests,37,12032,419159,11328.62,325.19,.py,6494,305242,274506,579748,2.07,89.27,790,2011-02-13 18:41:18+00:00,2026-09-02 18:15:52+00:00
+scikit-learn,1083,461607,16629919,15355.42,426.23,".c, .cpp, .h, .js, .py, .pyi, .sh",34005,12725528,10688867,23414395,4.31,688.56,3529,2010-01-05 13:26:32+00:00,2026-09-17 04:21:47+00:00
