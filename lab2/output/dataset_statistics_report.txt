@@ -1,0 +1,29 @@
+============================================================
+Clean Source Code Dataset
+============================================================
+total_records: 2635
+total_repositories: 5
+total_lines_of_code: 721510
+average_lines_per_file: 273.82
+largest_file_size_bytes: 402167
+
+============================================================
+Clean Commit History Dataset
+============================================================
+total_records: 71544
+total_repositories: 5
+total_insertions: 15732042
+total_deletions: 12769636
+average_files_changed_per_commit: 4.07
+unique_authors: 6950
+
+============================================================
+Combined Repository Dataset
+============================================================
+total_records: 5
+total_repositories: 5
+total_source_files: 2635
+total_commits: 71544
+total_lines_of_code: 721510
+total_code_changes: 28501678
+

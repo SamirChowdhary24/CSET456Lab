@@ -1,0 +1,4 @@
+dataset,total_records,total_repositories,total_lines_of_code,average_lines_per_file,largest_file_size_bytes,total_insertions,total_deletions,average_files_changed_per_commit,unique_authors,total_source_files,total_commits,total_code_changes
+Clean Source Code Dataset,2635,5,721510.0,273.82,402167.0,,,,,,,
+Clean Commit History Dataset,71544,5,,,,15732042.0,12769636.0,4.07,6950.0,,,
+Combined Repository Dataset,5,5,721510.0,,,,,,,2635.0,71544.0,28501678.0
