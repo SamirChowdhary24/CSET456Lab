@@ -1,0 +1,4 @@
+tokenizer,vocabulary_size,average_sequence_length,embedding_dimension,embedding_parameters,embedding_memory_MB
+Character,430,429.6,100,43000,0.164
+Word,105533,92.16,100,10553300,40.2576
+Subword-BPE,10000,92.66,100,1000000,3.8147
