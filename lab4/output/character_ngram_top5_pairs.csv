@@ -1,0 +1,6 @@
+token_1,token_2,cosine_similarity
+exception,OPTIONS,0.5070925951004028
+function,OPTIONS,0.3651483654975891
+function,exception,0.30860671401023865
+class,assert,0.28867512941360474
+import,def,0.0
