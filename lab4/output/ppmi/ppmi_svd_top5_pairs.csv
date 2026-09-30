@@ -1,0 +1,6 @@
+token_1,token_2,cosine_similarity
+Checking,RidgeCV,0.9417132347272229
+wait,attempt,0.9348945088240163
+OPTIONS,Checking,0.8972018992835402
+Checking,comm,0.8921298465625626
+OPTIONS,RidgeCV,0.8672135695825696

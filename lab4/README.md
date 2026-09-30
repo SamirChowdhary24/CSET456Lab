@@ -97,6 +97,129 @@ This motivates the second approach, which will construct embeddings using token 
 - `output/character_ngram_pairwise_similarity.csv`
 - `output/character_ngram_top5_pairs.csv`
 
-## Approach 2: Context-Based Co-occurrence Embeddings
+## Approach 2: PPMI + SVD Context Embeddings
 
-To be implemented.
+### Objective
+
+The second embedding approach was designed to capture the contextual usage of tokens rather than their character-level form.
+
+The main idea was based on the distributional hypothesis: tokens that occur in similar contexts may have similar representations.
+
+The pipeline used was:
+
+BPE Tokenization → Context Window → Co-occurrence Matrix → PPMI → SVD → Dense Embeddings → Cosine Similarity
+
+### Token Selection
+
+The same 20 tokens selected for Approach 1 were reused so that both embedding approaches could be compared fairly.
+
+The selection consisted of 10 manually selected tokens and 10 randomly selected tokens.
+
+### Context Representation
+
+The BPE tokenizer created in Lab 3 was reused.
+
+For every occurrence of one of the selected tokens, a context window of 2 tokens on either side was considered.
+
+For example:
+
+    token₋₂ token₋₁ TARGET token₊₁ token₊₂
+
+The surrounding tokens were counted as contexts for the target token.
+
+The context vocabulary consisted of the complete BPE vocabulary of 10,000 tokens.
+
+This produced a:
+
+- Co-occurrence matrix: 20 × 10,000
+- Non-zero co-occurrence entries: 37,054
+
+### PPMI Transformation
+
+Raw co-occurrence counts were converted into Positive Pointwise Mutual Information (PPMI).
+
+PPMI was used to give greater importance to context-token combinations that occurred more often than would be expected from their individual frequencies.
+
+Negative PMI values were replaced with zero.
+
+The resulting PPMI matrix contained:
+
+- Matrix size: 20 × 10,000
+- Non-zero PPMI entries: 23,099
+
+### SVD Dimensionality Reduction
+
+Truncated Singular Value Decomposition (SVD) was applied to the PPMI matrix to obtain dense lower-dimensional embeddings.
+
+The final embedding dimension was 10.
+
+The resulting embedding matrix had the shape:
+
+    20 × 10
+
+The selected SVD dimensions explained approximately 68.49% of the variance captured by the decomposition.
+
+### Pairwise Cosine Similarity
+
+Cosine similarity was calculated for every unique pair of the 20 token embeddings.
+
+Number of unique pairs:
+
+    20 × 19 / 2 = 190
+
+The five most similar pairs were:
+
+| Token 1 | Token 2 | Cosine Similarity |
+|---|---|---:|
+| Checking | RidgeCV | 0.9417 |
+| wait | attempt | 0.9349 |
+| OPTIONS | Checking | 0.8972 |
+| Checking | comm | 0.8921 |
+| OPTIONS | RidgeCV | 0.8672 |
+
+### Interpretation
+
+The similarities should be interpreted as contextual similarities rather than direct semantic similarity or synonymy.
+
+For example, `wait` and `attempt` received a high similarity of 0.9349. Although their meanings are different, they occurred in sufficiently similar contexts in the corpus for their PPMI-based representations to become close.
+
+The pair `return` and `assert` also received a relatively high similarity of 0.8240. This is reasonably plausible because both tokens commonly occur in Python programming contexts.
+
+Therefore, the method captures patterns of token usage in the corpus, but these patterns do not always correspond directly to semantic relationships.
+
+### Representation Failures
+
+#### Failure 1: False Contextual Similarity
+
+The tokens `wait` and `attempt` obtained a cosine similarity of 0.9349 despite having different meanings.
+
+This demonstrates that PPMI + SVD can produce high similarity between unrelated tokens when they occur in similar local contexts.
+
+#### Failure 2: Missed Conceptual Similarity
+
+The tokens `class` and `def` obtained a cosine similarity of approximately 0.0485.
+
+Both are important Python keywords used for defining program structures, but their local contexts can be substantially different.
+
+This demonstrates that the representation may fail to capture higher-level conceptual relationships when related tokens are used in different contextual patterns.
+
+### Limitations
+
+The PPMI + SVD approach has several limitations:
+
+1. It depends strongly on the contexts present in the training corpus.
+2. A small context window may miss longer-range relationships between tokens.
+3. Similar contexts do not necessarily imply similar meanings.
+4. SVD reduces the high-dimensional PPMI matrix, which may discard some information.
+5. The resulting vectors can contain negative values, so negative cosine similarity does not mean that two tokens have opposite meanings.
+
+### Output Files
+
+The experiment generated the following files:
+
+- `lab4/output/ppmi/cooccurrence_matrix.npy`
+- `lab4/output/ppmi/ppmi_matrix.npy`
+- `lab4/output/ppmi/ppmi_svd_embeddings.npy`
+- `lab4/output/ppmi/ppmi_svd_pairwise_similarity.csv`
+- `lab4/output/ppmi/ppmi_svd_top5_pairs.csv`
+- `lab4/output/ppmi/ppmi_svd_embedding_table.csv`
