@@ -223,3 +223,117 @@ The experiment generated the following files:
 - `lab4/output/ppmi/ppmi_svd_pairwise_similarity.csv`
 - `lab4/output/ppmi/ppmi_svd_top5_pairs.csv`
 - `lab4/output/ppmi/ppmi_svd_embedding_table.csv`
+
+
+---
+
+## Exercise 2: Word2Vec
+
+### Objective
+
+Word2Vec learns numerical representations of tokens from their surrounding contexts. Unlike character-trigram embeddings, which capture spelling patterns, Word2Vec learns relationships from token sequences.
+
+### Methodology
+
+The experiment uses Gensim's Skip-gram Word2Vec implementation and the combined corpus prepared in Lab 2.
+
+| Parameter | Value |
+|---|---:|
+| Corpus records | 73,918 |
+| Vocabulary size | 113,215 |
+| Embedding dimensions | 50 |
+| Context window | 5 |
+| Training epochs | 10 |
+| Minimum token frequency | 1 |
+| Random seed | 42 |
+
+The same 20 selected tokens were used to make the comparison with the custom approaches more consistent. Word2Vec found 19 of the 20 tokens. The token `buil` was missing because the Word2Vec tokenizer and the BPE tokenizer used for token selection produce different vocabularies.
+
+### Five most similar selected-token pairs
+
+| Token 1 | Token 2 | Cosine similarity |
+|---|---|---:|
+| error | exception | 0.7509 |
+| wait | attempt | 0.6756 |
+| OPTIONS | verse | 0.6594 |
+| script | attempt | 0.6532 |
+| class | return | 0.6325 |
+
+### Observations
+
+The pair `error` and `exception` received the highest similarity. This is plausible because the two tokens are closely related in programming terminology and can occur in similar contexts.
+
+The similarity between `wait` and `attempt` shows that tokens with different meanings can also become close when they occur in similar contexts.
+
+Unlike character-trigram embeddings, Word2Vec learns from surrounding tokens. However, its results still depend on the training corpus, tokenization, and training parameters.
+
+### Generated files
+
+- `output/word2vec/word2vec.model`
+- `output/word2vec/word2vec_embeddings.npy`
+- `output/word2vec/word2vec_embedding_table.json`
+- `output/word2vec/word2vec_nearest_neighbors.csv`
+- `output/word2vec/word2vec_pairwise_similarity.csv`
+- `output/word2vec/word2vec_top5_pairs.csv`
+
+---
+
+## Exercise 3: Code2Vec-Inspired AST Path Embeddings
+
+### Objective
+
+This experiment explores representing source code using structural information extracted from abstract syntax trees (ASTs), rather than relying only on token spelling or local token co-occurrence.
+
+### Methodology
+
+Python's built-in `ast` module was used to parse Python source files. The implementation extracted simplified paths between terminal nodes in the syntax trees. Each path context was represented using the endpoint labels and the intervening AST path.
+
+The path-context features were aggregated by source file and reduced to a lower-dimensional representation using Truncated Singular Value Decomposition (SVD).
+
+**Implementation scope:** This is a Code2Vec-inspired AST path-context baseline, not a reproduction of the original neural Code2Vec architecture. It does not train the original model's learned path, token, and attention representations.
+
+### Results
+
+| Metric | Result |
+|---|---:|
+| Python files processed | 1,500 |
+| AST path contexts extracted | 262,515 |
+| Context features | 91,281 |
+| Embedding dimensions | 32 |
+| SVD explained variance ratio | 40.25% |
+
+The experiment compared source-file embeddings using cosine similarity. Several file pairs received a similarity of 1.0. This indicates that the simplified representations can become identical for files with similar extracted structures; it does not prove that the files implement the same functionality.
+
+### Limitations
+
+1. The experiment processes only a subset of the available Python source files.
+2. The built-in AST parser supports Python, rather than every language in the repository.
+3. The representation uses simplified AST paths rather than the original Code2Vec neural architecture.
+4. SVD reduces the context features and may discard structural information.
+5. Similar extracted features can produce identical or very similar vectors, even when the files have different purposes.
+
+### Generated files
+
+- `output/code2vec/code2vec_inspired_file_embeddings.npy`
+- `output/code2vec/code2vec_inspired_embedding_table.json`
+- `output/code2vec/code2vec_inspired_summary.csv`
+- `output/code2vec/code2vec_inspired_top_file_pairs.csv`
+
+---
+
+## Comparison of Embedding Approaches
+
+| Approach | Main information captured | Main limitation |
+|---|---|---|
+| Character trigrams | Character and spelling patterns | Does not capture meaning or context |
+| PPMI + SVD | Local token co-occurrence | Similar contexts do not necessarily imply similar meanings |
+| Word2Vec | Token relationships learned from surrounding words | Depends on corpus, tokenization, and training parameters |
+| Code2Vec-inspired AST paths | Simplified source-code syntax structure | Not the original neural Code2Vec architecture |
+
+### Overall observations
+
+The experiments demonstrate that different representations capture different kinds of information.
+
+Character trigrams are simple and interpretable but primarily measure surface similarity. PPMI + SVD represents local co-occurrence patterns, while Word2Vec learns dense token vectors from surrounding contexts. The AST path experiment incorporates structural information from Python syntax trees.
+
+Cosine similarity is useful for comparing these representations, but a high score does not automatically prove semantic equivalence. Each method must be interpreted according to the information it captures and its limitations.
