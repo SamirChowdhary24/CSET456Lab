@@ -1,0 +1,4 @@
+model,architecture,hidden_layers,total_hidden_nodes,final_accuracy,epochs_to_target_accuracy,total_training_seconds
+Model_1_30,30,1,30,0.7959433061108577,,123.70586371421814
+Model_2_15_15,15 → 15,2,30,0.7888436615233686,,135.96115112304688
+Model_3_10_10_10,10 → 10 → 10,3,30,0.7655568272764042,,180.1729736328125
