@@ -1,0 +1,2 @@
+model,dataset,total_samples,training_samples,validation_samples,test_samples,vocabulary_size,max_sequence_length,embedding_dimension,hidden_dimension,epochs,test_loss,test_accuracy,test_precision,test_recall,test_f1,training_time_seconds
+LSTM,Phishing Email Dataset,82485,59389,6599,16497,20000,300,128,128,10,0.075208802606497,0.9801782142207675,0.9764406975401316,0.9856609932385172,0.9810291814120786,1798.6805367469788

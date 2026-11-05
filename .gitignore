@@ -1,3 +1,5 @@
 # Python cache files
 __pycache__/
 *.pyc
+
+lab6/data/raw/phishing_email.csv
