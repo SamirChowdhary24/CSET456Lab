@@ -1,0 +1,2 @@
+model,dataset,total_samples,training_samples,validation_samples,test_samples,max_sequence_length,batch_size,epochs,model_parameters,test_loss,test_accuracy,test_precision,test_recall,test_f1,training_time_seconds
+DistilBERT,Phishing Email Dataset,82485,5000,6599,16497,128,16,3,66955010,0.08429278106077968,0.9722373764926956,0.9812707444286392,0.9650268127768711,0.973080992124133,4188.736241340637
